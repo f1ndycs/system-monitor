@@ -79,10 +79,14 @@ class ProcessesTab:
 
         self.mem_rows = []
 
-    def update(self):
+    def update(self, data=None):
         """Обновляет список процессов."""
         try:
-            stats = get_process_stats()
+            if data:
+                stats = data
+            else:
+                from collector.processes import get_process_stats
+                stats = get_process_stats()
 
             # Общее количество
             self.total_label.configure(text=f"Всего процессов: {stats['total_count']}")

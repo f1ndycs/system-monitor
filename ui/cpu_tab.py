@@ -83,9 +83,13 @@ class CpuTab:
         self.cores_container = ctk.CTkFrame(self.graphs_frame, fg_color="transparent")
         self.cores_container.pack(fill="x")
 
-    def update(self):
+    def update(self, data=None):
         try:
-            stats = get_cpu_stats()
+            if data:
+                stats = data
+            else:
+                from collector.cpu import get_cpu_stats
+                stats = get_cpu_stats()
 
             # Информация
             self.cores_label.configure(

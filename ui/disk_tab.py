@@ -42,10 +42,14 @@ class DiskTab:
         self.io_write_label = ctk.CTkLabel(io_frame, text="", font=ctk.CTkFont(size=14))
         self.io_write_label.pack(side="left", padx=15, pady=5)
 
-    def update(self):
+    def update(self, data=None):
         """Обновляет данные о дисках."""
         try:
-            stats = get_disk_stats()
+            if data:
+                stats = data
+            else:
+                from collector.disk import get_disk_stats
+                stats = get_disk_stats()
             partitions = stats['partitions']
 
             # Создаём или обновляем блоки для каждого раздела

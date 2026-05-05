@@ -82,11 +82,18 @@ class MemoryTab:
         self._prev_recv = 0
         self._prev_sent = 0
 
-    def update(self):
+    def update(self, data=None):
         """Обновляет данные памяти и сети."""
         try:
-            # --- Память ---
-            mem = get_memory_stats()
+            if data:
+                mem = data['memory']
+                net = data['network']
+            else:
+                from collector.memory import get_memory_stats
+                from collector.network import get_network_stats
+                mem = get_memory_stats()
+                net = get_network_stats()
+
             v = mem['virtual']
             s = mem['swap']
 
@@ -99,7 +106,6 @@ class MemoryTab:
             self.mem_free_label.configure(text=f"Свободно: {v['free_gb']} ГБ")
             self.mem_cache_label.configure(text=f"Кэш/буфер: {v['cached_gb']} ГБ")
 
-            # --- Swap ---
             if s['total_gb'] > 0:
                 self.swap_info.configure(
                     text=f"Всего: {s['total_gb']} ГБ | Использовано: {s['used_gb']} ГБ ({s['percent']}%)"
@@ -109,11 +115,7 @@ class MemoryTab:
                 self.swap_info.configure(text="Swap недоступен")
                 self.swap_bar.set(0)
 
-            # --- Сеть ---
-            net = get_network_stats()
             io = net['io']
-
-            # Скорость (разница с предыдущим замером за 1 секунду)
             recv_speed = io['bytes_recv'] - self._prev_recv
             sent_speed = io['bytes_sent'] - self._prev_sent
             self._prev_recv = io['bytes_recv']
