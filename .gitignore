@@ -12,3 +12,6 @@ env/
 
 # Логи
 *.log
+
+# Docker
+*.tar
