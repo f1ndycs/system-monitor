@@ -62,12 +62,30 @@ class MainWindow:
 
     def update_all(self):
         """Обновляет данные на всех вкладках."""
-        self.cpu_tab.update()
-        self.memory_tab.update()
-        self.disk_tab.update()
-        self.processes_tab.update()
+        try:
+            self.cpu_tab.update()
+        except Exception as e:
+            from logger.logger import logger
+            logger.error(f"Ошибка обновления CPU: {e}")
 
-        # Планируем следующее обновление через 1 секунду
+        try:
+            self.memory_tab.update()
+        except Exception as e:
+            from logger.logger import logger
+            logger.error(f"Ошибка обновления памяти: {e}")
+
+        try:
+            self.disk_tab.update()
+        except Exception as e:
+            from logger.logger import logger
+            logger.error(f"Ошибка обновления дисков: {e}")
+
+        try:
+            self.processes_tab.update()
+        except Exception as e:
+            from logger.logger import logger
+            logger.error(f"Ошибка обновления процессов: {e}")
+
         self.root.after(1000, self.update_all)
 
     def run(self):

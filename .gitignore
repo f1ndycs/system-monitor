@@ -9,3 +9,6 @@ venv/
 
 # Virtual environment
 env/
+
+# Логи
+*.log
