@@ -1,0 +1,8 @@
+include requirements.txt
+include run.sh
+include Dockerfile
+include docker-compose.yml
+recursive-include collector *.py
+recursive-include ui *.py
+recursive-include logger *.py
+recursive-include tests *.py
