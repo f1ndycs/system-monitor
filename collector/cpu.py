@@ -23,13 +23,6 @@ def get_cpu_percent_per_core(interval: float = 0.1) -> list[float]:
 def get_cpu_count(logical: bool = True) -> int:
     """
     Возвращает количество ядер CPU.
-
-    Args:
-        logical: True — логические ядра (с HyperThreading),
-                 False — только физические
-
-    Returns:
-        int: количество ядер
     """
     return psutil.cpu_count(logical=logical)
 

@@ -8,9 +8,6 @@ import psutil
 def get_disk_partitions() -> list[dict]:
     """
     Возвращает список разделов диска с информацией о занятом месте.
-
-    Returns:
-        list[dict]: список разделов (device, mountpoint, total, used, free, percent)
     """
     partitions = []
     for part in psutil.disk_partitions():
@@ -36,9 +33,6 @@ def get_disk_partitions() -> list[dict]:
 def get_disk_io() -> dict:
     """
     Возвращает статистику ввода/вывода по всем дискам.
-
-    Returns:
-        dict: read_bytes, write_bytes, read_speed_mb, write_speed_mb
     """
     io = psutil.disk_io_counters()
     return {
@@ -52,9 +46,6 @@ def get_disk_io() -> dict:
 def get_disk_stats() -> dict:
     """
     Возвращает полную сводку о дисках.
-
-    Returns:
-        dict: разделы + статистика ввода/вывода
     """
     return {
         'partitions': get_disk_partitions(),
